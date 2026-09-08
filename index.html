@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://fullmodel-star.github.io/english-apps/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fullmodel-star.github.io/english-apps/">
+<meta property="og:site_name" content="英語App家族｜稜線">
+<meta property="og:title" content="英語App家族｜稜線">
+<meta property="og:description" content="稜線英語學習App對外作品集入口。">
+<meta property="og:image" content="https://fullmodel-star.github.io/english-apps/og-english-public.png?v=20260908b">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="英語App家族｜稜線">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="英語App家族｜稜線">
+<meta name="twitter:description" content="稜線英語學習App對外作品集入口。">
+<meta name="twitter:image" content="https://fullmodel-star.github.io/english-apps/og-english-public.png?v=20260908b">
+<meta name="twitter:image:alt" content="英語App家族｜稜線">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4E6E88">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="英語一點通">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="stylesheet" href="ridgeline-ui.css">
+<title>英語 App 家族</title>
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  /* 色彩・字體・深淺模式全部來自 ridgeline-ui.css（紙背+岩藍+一處金，禁漸層/陰影） */
+  .wrap{max-width:960px;margin:0 auto;padding:22px 16px calc(40px + env(safe-area-inset-bottom))}
+  .rl-appbar{position:sticky;top:0;z-index:20}
+  .rl-appbar .rl-glyph{width:30px;height:30px}
+
+  .rl-appbar .rl-mark{background:rgba(238,243,246,.10)}
+  .intro{max-width:660px;margin:18px auto 0;text-align:center;color:var(--sub);font-size:13.8px;line-height:1.9;padding:0 4px}
+  .intro b{color:var(--ink)}
+  .tags{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:14px 0 0}
+  .tags span{font-size:12px;font-weight:500;letter-spacing:.5px;color:var(--accent);background:color-mix(in srgb,var(--accent) 13%,transparent);border-radius:999px;padding:5px 12px}
+  #installBar{text-align:center;margin:18px auto 0}
+  #installBar:empty{display:none}
+  #installBar .ib{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:10px;padding:11px 18px;font-size:14.5px;font-weight:700;cursor:pointer;background:var(--accent);color:#fff}
+  #installBar .ib.sec{background:transparent;color:var(--ink);border:1.5px solid var(--muted)}
+  #installBar .tip{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px;font-size:13px;line-height:1.85;color:var(--sub);text-align:left;max-width:430px;margin:0 auto}
+  #installBar .tip .x{display:inline-block;margin-top:6px;color:var(--accent);font-weight:700;cursor:pointer}
+  .search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin:18px 0 6px}
+  .search input{border:0;outline:0;background:none;flex:1;font-size:15px;color:var(--ink);font-family:inherit}
+  .search input::placeholder{color:var(--muted)}
+  h2.grp{font-family:var(--font-title);font-size:15px;font-weight:600;color:var(--ink);margin:24px 4px 10px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+  .card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px;cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column;align-items:center;text-align:center;transition:border-color .14s,transform .14s}
+  .card:active{transform:scale(.98)}
+  @media(hover:hover){.card:hover{border-color:var(--accent)}}
+  /* launcher 圖示＝小 LOGO：上「英文」下短標，保留各 App 顏色；扁平無漸層無陰影 */
+  .ic{width:58px;height:58px;border-radius:14px;display:flex;align-items:center;justify-content:center;text-align:center;margin-bottom:11px;color:#fff;padding:4px}
+  .ic b{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:14px;font-weight:800;line-height:1.05;word-break:break-word}
+  .ic .ict{font-size:9.5px;font-weight:700;letter-spacing:2px;opacity:.92;line-height:1}
+  .card .nm{font-weight:700;font-size:15px}
+  .card .ds{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5}
+  .card .go{margin-top:9px;font-size:12px;font-weight:700;color:var(--accent)}
+  .card.soon{opacity:.55}
+  .card.soon .go{color:var(--muted)}
+  .badge-soon{position:absolute;top:10px;right:10px;background:color-mix(in srgb,var(--muted) 16%,transparent);color:var(--sub);font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px}
+  .empty{text-align:center;color:var(--muted);padding:30px;font-size:14px}
+  .src{max-width:660px;margin:16px auto 0;font-size:11.5px;line-height:1.85;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;text-align:center}
+  .src b{font-weight:700;color:var(--sub)}
+  .dash{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px;margin:18px 0 6px}
+  .dash h3{margin:0 0 12px;font-family:var(--font-title);font-size:15px;display:flex;align-items:center;gap:8px}
+  .dstats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .dstat{text-align:center;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 6px}
+  .dstat b{display:block;font-size:26px;font-weight:800;color:var(--ink);line-height:1.1;font-family:var(--font-title)}
+  .dstat span{font-size:11.5px;color:var(--muted)}
+  .dapps{display:grid;gap:9px;margin-top:12px}
+  .dapp{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-decoration:none;color:inherit}
+  .dapp .dnm{font-weight:700;font-size:14px}.dapp .dmeta{font-size:11.5px;color:var(--muted)}
+  .dapp .dgo{margin-left:auto;font-size:12px;color:var(--accent);font-weight:700}
+  .dwords{margin-top:12px}
+  .dwords summary{cursor:pointer;font-weight:600;font-size:13.5px;color:var(--muted)}
+  .wchip{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:3px 9px;margin:3px 3px 0 0;font-size:13px}
+  .dash .demp{color:var(--muted);font-size:13px;text-align:center;padding:10px 6px;line-height:1.8}
+</style>
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+</head>
+<body class="theme-steel">
+<header class="rl-appbar">
+  <span class="rl-mark"><img class="rl-glyph" src="rl-mark-everest-navy.png" width="30" height="30" alt="" style="object-fit:contain"></span>
+  <div>
+    <div class="rl-title">英語一點通</div>
+    <div class="rl-sub">單字・文法・會考，一站練會</div>
+  </div>
+  <span class="rl-spacer"></span>
+</header>
+<div class="wrap">
+  <div class="tags"><span>🆓 免費</span><span>📴 可離線</span><span>📲 加到桌面</span></div>
+
+  <p class="intro">「英語一點通」把 <b>國小到高中、大學</b> 的英語學習 App 集合在一個地方——<b>單字、文法、閱讀、句型、會考複習</b>，一站就能練。每個都<b>免費</b>、可<b>離線</b>使用，能加到手機或平板桌面當 App 開；學習進度只存在自己的裝置，<b>不上傳任何資料</b>。</p>
+
+  <div id="installBar"></div>
+
+  <div class="dash" id="dash"></div>
+
+  <div class="search">🔍 <input id="q" type="search" placeholder="搜尋 App（例：單字、文法、會考…）" oninput="render()"></div>
+
+  <div id="list"></div>
+
+  <div class="src">共 <span id="count">0</span> 個 App · 點卡片開啟。加入主畫面：手機瀏覽器選單 →「加到主畫面」。</div>
+  <footer class="rl-signature">
+    <div class="rl-sig-row">
+      <span class="rl-mkcol" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px"><img class="rl-sig-glyph" src="rl-mark-everest-navy.png" width="66" height="34" alt="" style="object-fit:contain"><span style="font-family:'Noto Serif TC',serif;font-size:14px;font-weight:600;letter-spacing:.5px;color:currentColor">Mt. Everest</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#8794a3">8,849 M</span></span>
+      <span class="rl-sig-rule" style="height:88px"></span>
+      <p class="rl-sig-quote">多學一句英文，<br>世界就近一點。</p>
+    </div>
+    <p class="rl-sig-by">Ridgeline · by Lucas</p>
+    <p style="font-size:11px;line-height:1.7;color:var(--muted);max-width:640px;margin:14px auto 0">📚 <b>資料來源</b>：單字：國中小依<b>教育部課綱字表</b>、高中依大考中心參考詞彙，多益／托福為國際測驗常見字彙（非官方字表）；會考／考試題目取自<b>教育部心測中心（國中會考）、大學入學考試中心（學測・分科）</b>等公開歷屆試題；文法與閱讀為依課綱範圍編寫之原創題。皆為公開教育資源，僅供教學與自學參考。<br><span style="opacity:.85">⚠️ 免責聲明：本站各 App 之單字、例句、題目與解析僅供學習參考，力求正確但仍可能有誤，且不代表任何官方立場；正式考試與課程請以教育部、大學入學考試中心及各校公告與教材為準。與各官方機構、出版社均無隸屬或合作關係，所引用之名稱與商標歸原權利人所有。</span></p>
+    <p style="font-size:11px;line-height:1.7;color:var(--muted);max-width:640px;margin:8px auto 0">© 2026 Ridgeline · by Lucas｜本站各 App 免費提供使用；程式與內容著作權皆屬作者，未經同意請勿重製、散布或作商業用途。</p>
+  </footer>
+</div>
+
+<script>
+/* ========================================================================
+   要新增 App：在下面 APPS 陣列加一筆就好，版面會自動排（支援很多個）。
+   欄位： name 名稱 / desc 一句說明 / color 品牌色 / pill 圖示藥丸字 /
+          url 網址(null = 尚未上線，顯示「即將上線」) / group 分類
+   ======================================================================== */
+const APPS = [
+  // ── 學習規劃 ──
+  { name:"學習計畫日曆", desc:"國中三年學習計畫：月曆＋每日任務、補習自習排程，完成升忍者等級。", color:"#ff6a1a", pill:"計畫", group:"學習規劃", url:"https://fullmodel-star.github.io/study-planner/" },
+  // ── 單字 ──
+  { name:"國小1200", desc:"教育部課綱基礎 1200 字。翻卡＋間隔複習，打好國小英語底子。", color:"#2eb872", pill:"1200", group:"單字", url:"https://fullmodel-star.github.io/english1200/" },
+  { name:"國中2000", desc:"國中必備 2000 字，依主題分類、由易到難，會考單字一次備齊。", color:"#e8504f", pill:"2000", group:"單字", url:"https://fullmodel-star.github.io/english2000/" },
+  { name:"高中6000", desc:"高中進階 6000 字，銜接學測、指考的字彙量。", color:"#f5a623", pill:"6000", group:"單字", url:"https://fullmodel-star.github.io/english6000/" },
+  { name:"學測必考單字", desc:"大考中心 110-115 實考 2570 字，按頻率分級，翻卡＋測驗＋發音。", color:"#d97706", pill:"必考", group:"單字", url:"https://fullmodel-star.github.io/gsat-core/" },
+  { name:"多益單字", desc:"職場商用 874 字，含詞性／音標／例句，翻卡＋間隔複習。", color:"#1e3a5f", pill:"多益", group:"檢定 · 職場", url:"https://fullmodel-star.github.io/toeic-vocab/" },
+  { name:"托福單字", desc:"留學學術 896 字，含詞性／音標／例句，翻卡＋間隔複習。", color:"#0f5c5c", pill:"托福", group:"檢定 · 職場", url:"https://fullmodel-star.github.io/toefl-vocab/" },
+  // ── 文法 · 句型 ──
+  { name:"國中英語句型", desc:"多鄰國式拼句練習：把單字排成正確句子，邊玩邊練語感與句型。", color:"#1f8fd6", pill:"句型", group:"文法 · 句型", url:"https://fullmodel-star.github.io/englishS/" },
+  // ── 會考 · 考試 ──
+  { name:"國中會考複習", desc:"會考歷屆真題重點：字彙／文法／閱讀，即時解析。", color:"#e84393", pill:"會考", group:"會考 · 考試", url:"https://fullmodel-star.github.io/cap-english/" },
+  { name:"學測複習", desc:"學測歷屆真題重點：字彙／文法／閱讀＋解析。", color:"#0ea5a5", pill:"學測", group:"會考 · 考試", url:"https://fullmodel-star.github.io/gsat-english/" },
+  { name:"會考英語題庫", desc:"官方 110–115 整卷模擬（計時）＋弱點診斷＋錯題本，含聽力。", color:"#4338ca", pill:"題庫", group:"會考 · 考試", url:"https://fullmodel-star.github.io/cap-qbank/" },
+  { name:"學測英語題庫", desc:"大考中心 110–115 五大題型 281 題，計時模擬＋弱點診斷。", color:"#0e7490", pill:"學測", group:"會考 · 考試", url:"https://fullmodel-star.github.io/gsat-qbank/" },
+  // ── 旅遊 · 生活 ──
+  { name:"旅遊英文", desc:"全家出國會話：情境關卡、SOS 急救句、全句庫搜尋，出國隨查隨用。", color:"#4f46e5", pill:"旅遊", group:"旅遊 · 生活", url:"https://fullmodel-star.github.io/travel-english/" },
+  { name:"家庭生活英語", desc:"在家的一天 10 大情境對話＋角色扮演。", color:"#e76f51", pill:"家庭", group:"旅遊 · 生活", url:"https://fullmodel-star.github.io/family-english/" },
+  { name:"校園生活英語", desc:"上學開口說 10 大校園情境對話＋角色扮演。", color:"#65a30d", pill:"校園", group:"旅遊 · 生活", url:"https://fullmodel-star.github.io/campus-english/" },
+  { name:"生活辦事英文", desc:"銀行／郵局／看醫生…13 大辦事情境會話＋救急句。", color:"#ea580c", pill:"辦事", group:"旅遊 · 生活", url:"https://fullmodel-star.github.io/errand-english/" },
+  { name:"社交英文", desc:"打招呼／邀約／道歉／安慰／告白…13 大社交情感情境，自然開口。", color:"#db2777", pill:"社交", group:"旅遊 · 生活", url:"https://fullmodel-star.github.io/social-english/" },
+];
+// 分類顯示順序（新分類會自動接在後面）
+const GROUP_ORDER = ["學習規劃","單字","檢定 · 職場","文法 · 句型","會考 · 考試","旅遊 · 生活"];
+
+/* ===== 「⬅ 入口」要回得到正確的家 =====
+   對外 hub 也要掛 ?hub=<自己的網址>。少了這個，從公開入口進 App 的人若上次是從家庭 hub
+   進來的，localStorage 還記著家庭 hub → 按「⬅ 入口」會被送去家庭入口（撞密碼牆）。
+   兩個 hub 都掛，最後一次從哪進來就回哪，才不會互相污染。 */
+const HUB_SELF="https://fullmodel-star.github.io/english-apps/";
+function withHub(u){ try{ const x=new URL(u); x.searchParams.set("hub",HUB_SELF); return x.toString(); }catch(e){ return u; } }
+function lighten(hex,t){const c=[1,3,5].map(i=>parseInt(hex.substr(i,2),16));return"#"+c.map(v=>Math.round(v+(255-v)*t).toString(16).padStart(2,"0")).join("");}
+function card(a){
+  const soon=!a.url;
+  const _top=a.group==="學習規劃"?"學習":"英文";
+  const tag=`<div class="ic" style="background:${a.color}"><b><span class="ict">${_top}</span>${a.pill}</b></div>`;
+  const inner=`${tag}<div class="nm">${a.name}</div><div class="ds">${a.desc}</div><div class="go">${soon?"即將上線":"開啟 ▶"}</div>${soon?'<span class="badge-soon">即將上線</span>':''}`;
+  if(soon)return `<div class="card soon" title="尚未上線">${inner}</div>`;
+  return `<a class="card" href="${withHub(a.url)}">${inner}</a>`;
+}
+function render(){
+  const q=(document.getElementById("q").value||"").trim().toLowerCase();
+  const list=APPS.filter(a=>!q||(a.name+a.desc+a.group).toLowerCase().includes(q));
+  document.getElementById("count").textContent=APPS.length;
+  const groups=[...new Set(list.map(a=>a.group))].sort((x,y)=>{
+    let ix=GROUP_ORDER.indexOf(x),iy=GROUP_ORDER.indexOf(y);
+    if(ix<0)ix=99;if(iy<0)iy=99;return ix-iy;});
+  let h="";
+  groups.forEach(g=>{
+    h+=`<h2 class="grp">${g}</h2><div class="grid">`+list.filter(a=>a.group===g).map(card).join("")+`</div>`;
+  });
+  document.getElementById("list").innerHTML = h || '<div class="empty">找不到符合的 App 🔍</div>';
+}
+render();
+
+/* ===== 學習儀表板（跨 App 彙整，同網域 localStorage 互通）===== */
+function readJSON(k){try{return JSON.parse(localStorage.getItem(k))||null}catch(e){return null}}
+const EXAM_APPS=[
+  {p:"cap",  name:"國中會考複習", url:"https://fullmodel-star.github.io/cap-english/",  color:"#e84393"},
+  {p:"gsat", name:"學測複習",     url:"https://fullmodel-star.github.io/gsat-english/", color:"#0ea5a5"},
+];
+const VOCAB_APPS=[
+  {k:"engpomo_v1_1200", name:"國小1200", url:"https://fullmodel-star.github.io/english1200/", color:"#2eb872"},
+  {k:"engpomo_v1_2000", name:"國中2000", url:"https://fullmodel-star.github.io/english2000/", color:"#e8504f"},
+  {k:"engpomo_v1_6000", name:"高中6000", url:"https://fullmodel-star.github.io/english6000/", color:"#f5a623"},
+  {k:"engpomo_v1_toeic", name:"多益單字", url:"https://fullmodel-star.github.io/toeic-vocab/", color:"#1e40af"},
+  {k:"engpomo_v1_toefl", name:"托福單字", url:"https://fullmodel-star.github.io/toefl-vocab/", color:"#14532d"},
+];
+const QBANK_APPS=[
+  {k:"cap_qb_v1",  name:"會考英語題庫", url:"https://fullmodel-star.github.io/cap-qbank/",  color:"#4338ca"},
+  {k:"gsat_qb_v1", name:"學測英語題庫", url:"https://fullmodel-star.github.io/gsat-qbank/", color:"#0e7490"},
+];
+const CONV_APPS=[
+  {k:"trip_en_global",   name:"旅遊英文",     url:"https://fullmodel-star.github.io/travel-english/", color:"#0ea5e9"},
+  {k:"family_en_global", name:"家庭生活英語", url:"https://fullmodel-star.github.io/family-english/", color:"#e76f51"},
+  {k:"campus_en_global", name:"校園生活英語", url:"https://fullmodel-star.github.io/campus-english/", color:"#65a30d"},
+  {k:"life_en_global",   name:"生活辦事英文", url:"https://fullmodel-star.github.io/errand-english/", color:"#ea580c"},
+  {k:"social_en_global", name:"社交英文",     url:"https://fullmodel-star.github.io/social-english/", color:"#db2777"},
+];
+function renderDash(){
+  const el=document.getElementById("dash");if(!el)return;const now=Date.now();
+  let allWords=[],examWrong=0,units=0,exPer=[],any=false;
+  EXAM_APPS.forEach(a=>{
+    const w=readJSON(a.p+"_words")||{}, wr=readJSON(a.p+"_wrong")||{}, un=readJSON(a.p+"_units")||{};
+    const nw=Object.keys(w).length,nwr=Object.keys(wr).length,nu=Object.keys(un).length;
+    if(nw||nwr||nu)any=true;
+    Object.keys(w).forEach(k=>allWords.push({w:k,app:a.name}));
+    examWrong+=nwr;units+=nu;exPer.push({...a,nw,nwr,nu});
+  });
+  let vLearned=0,vDue=0,vPer=[];
+  VOCAB_APPS.forEach(a=>{
+    const S=readJSON(a.k)||{}, srs=S.srs||{};
+    const learned=Object.keys(srs).length;
+    const due=Object.keys(srs).reduce((n,k)=>{const e=srs[k];return n+((e&&e.due&&e.due<=now)?1:0);},0);
+    if(learned)any=true;
+    vLearned+=learned;vDue+=due;vPer.push({...a,learned,due});
+  });
+  let qDone=0,qWrong=0,qPer=[];
+  QBANK_APPS.forEach(a=>{
+    const S=readJSON(a.k)||{}, rec=S.rec||{}, wr=(S.wrong||[]);
+    const done=Object.keys(rec).length, corr=Object.values(rec).filter(x=>x&&x.correct).length, nwr=wr.length;
+    if(done||nwr)any=true;
+    qDone+=done;qWrong+=nwr;qPer.push({...a,done,corr,nwr});
+  });
+  let cPer=[];
+  CONV_APPS.forEach(a=>{
+    const S=readJSON(a.k)||{}, cards=S.cards||{};
+    const practiced=Object.keys(cards).length;
+    if(practiced)any=true;
+    cPer.push({...a,practiced});
+  });
+  if(!any){el.innerHTML='<h3>📊 我的學習儀表板</h3><div class="demp">開始用各 App 學習後，這裡會自動彙整你的<b>已學單字、待複習與完成進度</b>。<br>（資料只存在本裝置，不上傳）</div>';return;}
+  const uniq=[...new Set(allWords.map(x=>x.w))];
+  const totalReview=examWrong+vDue+qWrong;
+  const qcards=qPer.filter(a=>a.done||a.nwr).map(a=>`<a class="dapp" href="${withHub(a.url)}"><span style="width:10px;height:10px;border-radius:50%;flex:0 0 auto;background:${a.color}"></span><div><div class="dnm">${a.name}</div><div class="dmeta">作答 ${a.done} 題・答對率 ${a.done?Math.round(a.corr/a.done*100):0}%${a.nwr?"・<b style='color:#d9822b'>錯題 "+a.nwr+"</b>":""}</div></div><span class="dgo">開啟 ▶</span></a>`).join("");
+  const vcards=vPer.filter(a=>a.learned).map(a=>`<a class="dapp" href="${withHub(a.url)}"><span style="width:10px;height:10px;border-radius:50%;flex:0 0 auto;background:${a.color}"></span><div><div class="dnm">${a.name}</div><div class="dmeta">已學 ${a.learned} 字${a.due?"・<b style='color:#d9822b'>待複習 "+a.due+"</b>":"・已複習完 ✓"}</div></div><span class="dgo">開啟 ▶</span></a>`).join("");
+  const ecards=exPer.filter(a=>a.nw||a.nwr||a.nu).map(a=>`<a class="dapp" href="${withHub(a.url)}"><span style="width:10px;height:10px;border-radius:50%;flex:0 0 auto;background:${a.color}"></span><div><div class="dnm">${a.name}</div><div class="dmeta">生字 ${a.nw}・錯題 ${a.nwr}・完成 ${a.nu} 單元</div></div><span class="dgo">開啟 ▶</span></a>`).join("");
+  const ccards=cPer.filter(a=>a.practiced).map(a=>`<a class="dapp" href="${withHub(a.url)}"><span style="width:10px;height:10px;border-radius:50%;flex:0 0 auto;background:${a.color}"></span><div><div class="dnm">${a.name}</div><div class="dmeta">已練 ${a.practiced} 句</div></div><span class="dgo">開啟 ▶</span></a>`).join("");
+  const chips=allWords.slice().sort((x,y)=>x.w.localeCompare(y.w)).map(x=>`<span class="wchip" title="${x.app}">${x.w}</span>`).join("");
+  el.innerHTML=`<h3>📊 我的學習儀表板</h3>
+    <div class="dstats">
+      <div class="dstat"><b>${vLearned}</b><span>📖 已學單字</span></div>
+      <div class="dstat"><b style="${totalReview?'color:#d9822b':''}">${totalReview}</b><span>🔁 今日待複習</span></div>
+      <div class="dstat"><b>${units}</b><span>✅ 完成單元</span></div>
+    </div>
+    ${vcards?`<div style="font-size:12px;font-weight:800;color:var(--muted);margin:14px 2px 6px">📚 單字複習</div><div class="dapps">${vcards}</div>`:""}
+    ${qcards?`<div style="font-size:12px;font-weight:800;color:var(--muted);margin:14px 2px 6px">📝 官方題庫（整卷模擬）</div><div class="dapps">${qcards}</div>`:""}
+    ${ecards?`<div style="font-size:12px;font-weight:800;color:var(--muted);margin:14px 2px 6px">📚 會考・學測（講義）</div><div class="dapps">${ecards}</div>`:""}
+    ${ccards?`<div style="font-size:12px;font-weight:800;color:var(--muted);margin:14px 2px 6px">🗣️ 生活會話</div><div class="dapps">${ccards}</div>`:""}
+    ${allWords.length?`<details class="dwords"><summary>📒 我的考試生字本（${uniq.length}）</summary><div style="margin-top:8px">${chips}</div></details>`:""}`;
+}
+renderDash();
+
+/* ===== 安裝到桌面 (PWA) ===== */
+(function(){
+  var dp=null;
+  function iss(){return (window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;}
+  function iios(){return /iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);}
+  function ren(){var el=document.getElementById("installBar");if(!el)return;
+    if(iss()){el.innerHTML="";return;}
+    if(dp){el.innerHTML='<button class="ib" onclick="__hubInstall()">📲 把「英語一點通」加到桌面 ➕</button>';}
+    else if(iios()){el.innerHTML='<button class="ib sec" onclick="__hubIOS()">📲 加到 iPad / iPhone 主畫面 ›</button>';}
+    else{el.innerHTML="";}}
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;ren();});
+  window.addEventListener("appinstalled",function(){dp=null;ren();});
+  window.__hubInstall=function(){if(!dp)return;dp.prompt();dp.userChoice.finally(function(){dp=null;ren();});};
+  window.__hubIOS=function(){var el=document.getElementById("installBar");el.innerHTML='<div class="tip">📲 <b>加到 iPad / iPhone 桌面：</b><br>1. 用 <b>Safari</b> 開啟本頁<br>2. 點「分享 ⬆️」<br>3. 往下找「<b>加入主畫面 ➕</b>」<br>4. 右上按「新增」完成<br><span class="x" onclick="__hubClose()">知道了 ✓</span></div>';};
+  window.__hubClose=function(){ren();};
+  ren();
+})();
+if("serviceWorker" in navigator){
+  var __hadCtrl=!!navigator.serviceWorker.controller, __reloading=false;
+  navigator.serviceWorker.addEventListener("controllerchange",function(){
+    if(!__hadCtrl){__hadCtrl=true;return;}           /* 首次安裝不重載 */
+    if(__reloading)return; __reloading=true;
+    location.reload();                                /* 偵測到新版→自動更新 */
+  });
+  navigator.serviceWorker.register("sw.js").then(function(reg){
+    if(reg.update)reg.update();                       /* 每次開啟主動檢查更新 */
+    setInterval(function(){try{reg.update()}catch(e){}},60*60*1000);
+  }).catch(()=>{});
+}
+</script>
+<script>/*ENGREVIEW*/(function(){if(window.EngReview)return;
+var WK='engreview.wrong',VK='engreview.words',APP={"id": "english-hub", "name": "英語學習入口"};
+function load(k){try{return JSON.parse(localStorage.getItem(k)||'{}')}catch(e){return{}}}
+function save(k,o){try{localStorage.setItem(k,JSON.stringify(o))}catch(e){}}
+function hash(s){var h=0,i;for(i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))|0}return(h>>>0).toString(36)}
+function now(){return Date.now()}
+var BOX=[0,1,3,7,16,40];
+function addWrong(r){var w=load(WK);var id=hash((r.app||APP.id)+'|'+r.stem+'|'+(r.options||[]).join('~'));var e=w[id]||{id:id,first:now(),n:0};
+ e.app=r.app||APP.id;e.appName=r.appName||APP.name;e.cat=r.cat||'其他';e.stem=r.stem;e.options=r.options;e.your=r.your;e.ans=r.ans;e.expl=r.expl||'';
+ e.box=0;e.streak=0;e.due=now();e.n=(e.n||0)+1;e.ts=now();w[id]=e;save(WK,w);}
+function graded(id,ok){var w=load(WK),e=w[id];if(!e)return;if(ok){e.streak=(e.streak||0)+1;e.box=Math.min((e.box||0)+1,BOX.length-1);if(e.streak>=2){delete w[id];save(WK,w);return;}e.due=now()+BOX[e.box]*86400000;}else{e.streak=0;e.box=0;e.due=now();}e.ts=now();w[id]=e;save(WK,w);}
+function addWord(word,zh,pos,cat){var v=load(VK),k=String(word||'').toLowerCase().trim();if(!k)return false;
+ if(!v[k]){v[k]={word:word,zh:zh||'（待查）',pos:pos||'',app:APP.id,appName:APP.name,cat:cat||'',box:0,streak:0,due:now(),ts:now()};save(VK,v);return true;}
+ else{if((!v[k].zh||v[k].zh==='（待查）')&&zh){v[k].zh=zh;save(VK,v);}return false;}}
+function setWordZh(word,zh){var v=load(VK),k=String(word).toLowerCase();if(v[k]){v[k].zh=zh;v[k].box=0;save(VK,v);}}
+function wordGraded(word,ok){var v=load(VK),k=String(word).toLowerCase(),e=v[k];if(!e)return;if(ok){e.streak=(e.streak||0)+1;e.box=Math.min((e.box||0)+1,BOX.length-1);if(e.streak>=2){e.mastered=1;}e.due=now()+BOX[e.box]*86400000;}else{e.streak=0;e.box=0;e.mastered=0;e.due=now();}save(VK,v);}
+function removeWord(word){var v=load(VK);delete v[String(word).toLowerCase()];save(VK,v);}
+function cnt(o,due){var n=0,k;for(k in o){if(!due||o[k].due<=now())n++;}return n;}
+window.EngReview={app:APP,addWrong:addWrong,graded:graded,addWord:addWord,setWordZh:setWordZh,wordGraded:wordGraded,removeWord:removeWord,
+ wrong:function(){return load(WK)},words:function(){return load(VK)},
+ wrongCount:function(d){return cnt(load(WK),d)},wordCount:function(d){return cnt(load(VK),d)}};
+})();</script>
+<script>/*ENGWC*/(function(){if(window.__engwc)return;window.__engwc=1;
+var CFG={"ns": "english-hub", "emoji": "🎓", "title": "英語學習入口", "theme": "#141E2B", "tagline": "英語 App 家族總入口＋學習儀表板", "steps": [["🔍", "找 App", "用搜尋或分類，找到你想學的那支。"], ["📊", "學習儀表板", "看跨 App 的學習進度彙整。"], ["📲", "安裝到桌面", "把入口裝起來，一點就到。"]], "hub": null};var K='engwc.'+CFG.ns+'.done';
+var css='.engwc-ov{position:fixed;inset:0;background:rgba(28,28,40,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);z-index:2147483000;display:none;align-items:center;justify-content:center;padding:18px}'
++'.engwc-ov.show{display:flex}'
++'.engwc-card{background:#fff;color:#2a2a33;border-radius:22px;max-width:400px;width:100%;padding:24px 22px 20px;box-shadow:0 20px 55px rgba(0,0,0,.35);max-height:88vh;overflow:auto;font-family:-apple-system,\"PingFang TC\",\"Microsoft JhengHei\",system-ui,sans-serif;animation:engwcIn .25s ease}'
++'@keyframes engwcIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}'
++'.engwc-emoji{font-size:46px;text-align:center;line-height:1}'
++'.engwc-h{text-align:center;margin:8px 0 2px;font-size:21px;font-weight:800}'
++'.engwc-sub{text-align:center;color:#7a7a86;font-size:13.5px;margin-bottom:15px;line-height:1.5}'
++'.engwc-step{display:flex;gap:11px;align-items:flex-start;background:#f7f7fa;border:1px solid #ececf0;border-radius:13px;padding:10px 12px;margin-bottom:8px}'
++'.engwc-i{font-size:21px;flex:0 0 auto;line-height:1.3}'
++'.engwc-step b{font-size:14.5px}.engwc-step>div>div{font-size:12.5px;color:#7a7a86;line-height:1.5;margin-top:1px}'
++'.engwc-start{width:100%;border:0;border-radius:14px;padding:13px;font-size:15.5px;font-weight:800;color:#fff;background:'+CFG.theme+';cursor:pointer;margin-top:8px;font-family:inherit}'
++'.engwc-help{position:fixed;left:calc(12px + env(safe-area-inset-left));bottom:calc(76px + env(safe-area-inset-bottom));z-index:2147482000;width:40px;height:40px;border-radius:50%;border:1px solid #e2e2ea;background:rgba(255,255,255,.94);color:#666;font-size:18px;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.18);padding:0}'
++'.engwc-home{position:fixed;left:calc(60px + env(safe-area-inset-left));bottom:calc(76px + env(safe-area-inset-bottom));z-index:2147482000;height:40px;border-radius:20px;border:1px solid #e2e2ea;background:rgba(255,255,255,.94);color:#555;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.18);padding:0 13px}';
+var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+var steps=CFG.steps.map(function(s){return '<div class=\"engwc-step\"><span class=\"engwc-i\">'+s[0]+'</span><div><b>'+s[1]+'</b><div>'+s[2]+'</div></div></div>';}).join('');
+var ov=document.createElement('div');ov.className='engwc-ov';
+ov.innerHTML='<div class=\"engwc-card\"><div class=\"engwc-emoji\">'+CFG.emoji+'</div><div class=\"engwc-h\">歡迎使用 '+CFG.title+'</div><div class=\"engwc-sub\">'+CFG.tagline+'</div>'+steps+'<button class=\"engwc-start\">開始使用 ▶</button></div>';
+document.body.appendChild(ov);
+var hb=document.createElement('button');hb.className='engwc-help';hb.setAttribute('aria-label','使用說明');hb.textContent='❓';document.body.appendChild(hb);
+if(CFG.hub){var hm=document.createElement('button');hm.className='engwc-home';hm.setAttribute('aria-label','回入口');hm.innerHTML='⬅ 入口';hm.addEventListener('click',function(){location.href=CFG.hub;});document.body.appendChild(hm);}
+function show(){ov.classList.add('show');}function close(){ov.classList.remove('show');try{localStorage.setItem(K,'1');}catch(e){}}
+ov.querySelector('.engwc-start').addEventListener('click',close);
+ov.addEventListener('click',close);
+hb.addEventListener('click',show);
+try{if(!localStorage.getItem(K)){var __t=setTimeout(show,0);var __cancel=function(){clearTimeout(__t);document.removeEventListener('pointerdown',__cancel,true);};document.addEventListener('pointerdown',__cancel,{capture:true,once:true});}}catch(e){setTimeout(show,0);}
+})();</script>
+<script>/*REVIEWUI*/(function(){if(window.__rvc)return;window.__rvc=1;
+var R=window.EngReview;if(!R){return;}
+var MYID=R.app.id, ISHUB=(MYID==='english-hub');
+var NSMAP={"english1200": {"name": "國小1200單字", "url": "https://fullmodel-star.github.io/english1200/"}, "english2000": {"name": "國中2000單字", "url": "https://fullmodel-star.github.io/english2000/"}, "english6000": {"name": "高中6000單字", "url": "https://fullmodel-star.github.io/english6000/"}, "gsat-core": {"name": "學測必考單字", "url": "https://fullmodel-star.github.io/gsat-core/"}, "toeic-vocab": {"name": "多益單字", "url": "https://fullmodel-star.github.io/toeic-vocab/"}, "toefl-vocab": {"name": "托福單字", "url": "https://fullmodel-star.github.io/toefl-vocab/"}, "englishS": {"name": "國中英語句型", "url": "https://fullmodel-star.github.io/englishS/"}, "cap-english": {"name": "國中會考複習", "url": "https://fullmodel-star.github.io/cap-english/"}, "gsat-english": {"name": "學測複習", "url": "https://fullmodel-star.github.io/gsat-english/"}, "cap-qbank": {"name": "會考英語題庫", "url": "https://fullmodel-star.github.io/cap-qbank/"}, "gsat-qbank": {"name": "學測英語題庫", "url": "https://fullmodel-star.github.io/gsat-qbank/"}, "travel-english": {"name": "旅遊英文", "url": "https://fullmodel-star.github.io/travel-english/"}, "family-english": {"name": "家庭生活英語", "url": "https://fullmodel-star.github.io/family-english/"}, "campus-english": {"name": "校園生活英語", "url": "https://fullmodel-star.github.io/campus-english/"}, "errand-english": {"name": "生活辦事英文", "url": "https://fullmodel-star.github.io/errand-english/"}, "social-english": {"name": "社交英文", "url": "https://fullmodel-star.github.io/social-english/"}};
+function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function speak(t){try{var u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
+var L=['A','B','C','D','E','F'],NOW=Date.now();
+var css=''
++'.rvc-fab{position:fixed;left:calc(12px + env(safe-area-inset-left));bottom:calc(124px + env(safe-area-inset-bottom));z-index:2147482500;height:40px;border-radius:20px;border:0;background:#141E2B;color:#fff;font-size:13.5px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(109,40,217,.4);padding:0 14px;font-family:inherit;display:none}'
++'.rvc-fab .bdg{background:#fff;color:#141E2B;border-radius:10px;padding:0 6px;margin-left:6px;font-size:12px}'
++'.rvc-card{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0 6px}'
++'.rvc-card h3{margin:0 0 3px;font-family:var(--font-title);font-size:16px}.rvc-card .rvc-sub{font-size:12.5px;color:var(--muted);margin-bottom:12px}'
++'.rvc-approw{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;text-decoration:none;color:inherit}'
++'.rvc-approw .an{font-weight:700;font-size:14px}.rvc-approw .am{font-size:11.5px;color:var(--muted)}.rvc-approw .ag{margin-left:auto;font-weight:700;font-size:12.5px;color:var(--accent)}'
++'.rvc-none{font-size:13px;color:var(--muted);line-height:1.8}'
++'.rvc-ov{position:fixed;inset:0;background:rgba(20,20,32,.6);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);z-index:2147483600;display:flex;align-items:flex-end;justify-content:center}'
++'.rvc-sheet{background:#f5f7fb;color:#1e2a48;width:100%;max-width:600px;max-height:92vh;border-radius:22px 22px 0 0;overflow:auto;padding:16px 16px calc(24px + env(safe-area-inset-bottom));font-family:-apple-system,\"PingFang TC\",\"Microsoft JhengHei\",sans-serif}'
++'.rvc-hd{display:flex;align-items:center;gap:10px;position:sticky;top:0;background:#f5f7fb;padding:4px 0 10px;z-index:2}'
++'.rvc-hd h2{font-size:18px;margin:0;flex:1}.rvc-x{border:0;background:rgba(0,0,0,.06);border-radius:50%;width:34px;height:34px;font-size:17px;cursor:pointer}'
++'.rvc-tab{display:flex;gap:8px;margin-bottom:10px}.rvc-tab button{flex:1;border:1.5px solid #e6ebf7;background:#fff;border-radius:11px;padding:9px;font-weight:800;font-size:13.5px;cursor:pointer;font-family:inherit}.rvc-tab button.on{background:#141E2B;color:#fff;border-color:transparent}'
++'.rvc-grp{font-weight:800;font-size:13px;color:#666;margin:12px 2px 6px}'
++'.rvc-item{background:#fff;border:1px solid #e6ebf7;border-radius:13px;padding:11px 13px;margin-bottom:9px}'
++'.rvc-q{font-weight:600;font-size:14.5px;line-height:1.5}'
++'.rvc-opt{border:1.5px solid #e6ebf7;border-radius:11px;padding:9px 12px;margin-top:7px;cursor:pointer;font-size:14.5px;display:flex;gap:8px;background:#fff}'
++'.rvc-opt .lb{font-weight:800;color:#888}.rvc-opt.ok{background:#e7f8ee;border-color:#37b36b}.rvc-opt.no{background:#fdecec;border-color:#e15656}'
++'.rvc-exp{background:#f0f5ff;border-left:3px solid #6E8BA3;border-radius:8px;padding:9px 11px;margin-top:8px;font-size:13px;line-height:1.6}'
++'.rvc-word{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e6ebf7;border-radius:12px;padding:10px 12px;margin-bottom:8px}'
++'.rvc-word .w{font-weight:800;font-size:15.5px}.rvc-word .z{font-size:13.5px;color:#666}.rvc-word .src{font-size:10.5px;color:#9aa;margin-left:auto;white-space:nowrap}'
++'.rvc-ic{border:0;background:#eef2ff;border-radius:9px;width:34px;height:34px;font-size:16px;cursor:pointer;flex:0 0 auto}'
++'.rvc-primary{width:100%;border:0;border-radius:14px;padding:14px;font-size:15.5px;font-weight:800;color:#fff;background:#141E2B;cursor:pointer;margin:8px 0;font-family:inherit}'
++'.rvc-flash{background:#fff;border:1px solid #e6ebf7;border-radius:18px;padding:34px 18px;text-align:center;margin:10px 0;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.06)}'
++'.rvc-flash .fw{font-size:30px;font-weight:800}.rvc-flash .fz{font-size:20px;margin-top:12px;color:#141E2B}'
++'.rvc-grade{display:grid;grid-template-columns:1fr 1fr;gap:10px}.rvc-grade button{border:0;border-radius:13px;padding:13px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}'
++'.rvc-bad{background:#fdecec;color:#c0392b}.rvc-good{background:#e7f8ee;color:#1e8e4e}'
++'.rvc-empty{text-align:center;color:#888;padding:26px;font-size:14px;line-height:1.9}';
+var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+
+function ownWrong(){var w=R.wrong(),o=[];for(var k in w){if(w[k].app===MYID)o.push(w[k]);}return o;}
+function ownWords(){var v=R.words(),o=[];for(var k in v){if(v[k].app===MYID)o.push(v[k]);}return o;}
+function due(a){return a.filter(function(x){return x.due<=NOW;});}
+
+function ov(title,inner){var o=document.createElement('div');o.className='rvc-ov';
+  o.innerHTML='<div class=\"rvc-sheet\"><div class=\"rvc-hd\"><h2>'+title+'</h2><button class=\"rvc-x\">✕</button></div><div class=\"rvc-body\">'+inner+'</div></div>';
+  o.addEventListener('click',function(e){if(e.target===o)o.remove();});
+  o.querySelector('.rvc-x').addEventListener('click',function(){o.remove();refreshFab();});
+  document.body.appendChild(o);return o;}
+
+/* ===== 一般 App：只複習自己的 ===== */
+function refreshFab(){var fab=document.getElementById('rvcFab');if(!fab)return;
+  var dw=due(ownWrong()).length, dv=due(ownWords()).length, tot=dw+dv;
+  if(tot>0){fab.style.display='inline-flex';fab.innerHTML='📝 複習<span class=\"bdg\">'+tot+'</span>';}else{fab.style.display='none';}}
+function openSelf(){
+  var W=ownWrong(),V=ownWords();
+  var h='<div class=\"rvc-tab\"><button class=\"on\" data-t=\"w\">📕 錯題 '+W.length+'</button><button data-t=\"v\">📘 生字 '+V.length+'</button></div><div id=\"rvcPane\"></div>';
+  var o=ov('📝 我的複習',h);
+  var pane=o.querySelector('#rvcPane');
+  o.querySelectorAll('.rvc-tab button').forEach(function(b){b.addEventListener('click',function(){o.querySelectorAll('.rvc-tab button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');paint(b.dataset.t);});});
+  function paint(t){if(t==='v')paintWords(pane,V,o);else paintWrong(pane,W,o);}
+  paint('w');
+}
+function paintWrong(pane,W,o){
+  if(!W.length){pane.innerHTML='<div class=\"rvc-empty\">目前沒有錯題 🎉<br>練習答錯的題目會自動收進這裡。</div>';return;}
+  var d=due(W);
+  var grp={};W.forEach(function(e){(grp[e.cat||'其他']=grp[e.cat||'其他']||[]).push(e);});
+  var h='<button class=\"rvc-primary\" '+(d.length?'':'disabled style=opacity:.5')+' id=\"rvcQz\">▶ 重考待複習錯題（'+d.length+'）</button>';
+  Object.keys(grp).forEach(function(g){h+='<div class=\"rvc-grp\">'+esc(g)+'（'+grp[g].length+'）</div>';
+    grp[g].forEach(function(e){h+='<div class=\"rvc-item\"><div class=\"rvc-q\">'+esc(e.stem)+'</div><div class=\"rvc-exp\"><b>✅ 正解 '+L[e.ans]+'：</b>'+esc((e.options||[])[e.ans]||'')+'　'+esc(e.expl||'')+'</div></div>';});});
+  pane.innerHTML=h;
+  var qz=pane.querySelector('#rvcQz');if(qz&&d.length)qz.addEventListener('click',function(){startQuiz(d,o);});
+}
+function startQuiz(pool,parent){
+  parent.remove();var i=0,right=0;var o=ov('📕 重考錯題（'+pool.length+'）','<div id=\"rvcQ\"></div>');
+  function draw(){var box=o.querySelector('#rvcQ');if(i>=pool.length){box.innerHTML='<div class=\"rvc-empty\">複習完成！答對 '+right+'/'+pool.length+'<br>連對 2 次的題目會自動畢業 🎓</div><button class=\"rvc-primary\">完成</button>';box.querySelector('button').addEventListener('click',function(){o.remove();refreshFab();});return;}
+    var e=pool[i];var h='<div class=\"rvc-item\"><div class=\"rvc-q\">'+(i+1)+'. '+esc(e.stem)+'</div>';
+    (e.options||[]).forEach(function(op,oi){h+='<div class=\"rvc-opt\" data-i=\"'+oi+'\"><span class=\"lb\">'+L[oi]+'</span><span>'+esc(op)+'</span></div>';});
+    h+='<div id=\"rvcFb\"></div></div>';box.innerHTML=h;
+    box.querySelectorAll('.rvc-opt').forEach(function(el){el.addEventListener('click',function(){
+      if(box.dataset.done)return;box.dataset.done='1';var pick=+el.dataset.i,ok=pick===e.ans;
+      box.querySelectorAll('.rvc-opt').forEach(function(x){var xi=+x.dataset.i;if(xi===e.ans)x.classList.add('ok');else if(xi===pick)x.classList.add('no');});
+      R.graded(e.id,ok);if(ok)right++;
+      box.querySelector('#rvcFb').innerHTML='<div class=\"rvc-exp\"><b>'+(ok?'✅ 答對':'❌ 答錯')+'・正解 '+L[e.ans]+'：</b>'+esc(e.expl||'')+'</div><button class=\"rvc-primary\">下一題 ▶</button>';
+      box.querySelector('#rvcFb button').addEventListener('click',function(){i++;delete box.dataset.done;draw();});
+    });});}
+  draw();
+}
+function paintWords(pane,V,o){
+  if(!V.length){pane.innerHTML='<div class=\"rvc-empty\">還沒有生字 📖<br>閱讀或做題時點不會的單字，就會收進這裡。</div>';return;}
+  var h='<button class=\"rvc-primary\" id=\"rvcFl\">🃏 翻卡複習（'+V.length+'）</button>';
+  V.forEach(function(e,idx){h+='<div class=\"rvc-word\"><div><div class=\"w\">'+esc(e.word)+' <span style=\"font-size:11px;color:#9aa\">'+esc(e.pos||'')+'</span></div><div class=\"z\">'+esc(e.zh)+'</div></div><span class=\"src\">'+esc(e.cat||'')+'</span>'
+    +'<button class=\"rvc-ic\" data-say=\"'+esc(e.word)+'\">🔊</button>'
+    +((!e.zh||e.zh==='（待查）')?'<button class=\"rvc-ic\" data-fill=\"'+esc(e.word)+'\">✏️</button>':'')
+    +'<button class=\"rvc-ic\" data-del=\"'+esc(e.word)+'\">🗑️</button></div>';});
+  pane.innerHTML=h;
+  pane.querySelector('#rvcFl').addEventListener('click',function(){startFlash(V,o);});
+  pane.querySelectorAll('[data-say]').forEach(function(b){b.addEventListener('click',function(){speak(b.dataset.say);});});
+  pane.querySelectorAll('[data-fill]').forEach(function(b){b.addEventListener('click',function(){var w=b.dataset.fill,zh=prompt('輸入「'+w+'」的中文意思：');if(zh&&zh.trim()){R.setWordZh(w,zh.trim());o.remove();openSelf();}});});
+  pane.querySelectorAll('[data-del]').forEach(function(b){b.addEventListener('click',function(){if(confirm('移除生字「'+b.dataset.del+'」？')){R.removeWord(b.dataset.del);o.remove();openSelf();}});});
+}
+function startFlash(V,parent){
+  parent.remove();var i=0;var o=ov('🃏 生字翻卡','<div id=\"rvcF\"></div>');
+  function draw(){var box=o.querySelector('#rvcF');if(i>=V.length){box.innerHTML='<div class=\"rvc-empty\">複習完成！👏</div><button class=\"rvc-primary\">完成</button>';box.querySelector('button').addEventListener('click',function(){o.remove();refreshFab();});return;}
+    var e=V[i];box.innerHTML='<div class=\"rvc-flash\" id=\"cf\"><div class=\"fw\">'+esc(e.word)+'</div><div style=\"font-size:12px;color:#9aa;margin-top:6px\">點卡片看中文・🔊</div></div>';
+    var flip=false,cf=box.querySelector('#cf');
+    cf.addEventListener('click',function(){if(!flip){flip=true;cf.innerHTML='<div class=\"fw\">'+esc(e.word)+'</div><div class=\"fz\">'+esc(e.zh)+'</div>';speak(e.word);
+      var g=document.createElement('div');g.className='rvc-grade';g.innerHTML='<button class=\"rvc-bad\">還不熟</button><button class=\"rvc-good\">記得了</button>';box.appendChild(g);
+      g.children[0].addEventListener('click',function(){R.wordGraded(e.word,false);i++;draw();});
+      g.children[1].addEventListener('click',function(){R.wordGraded(e.word,true);i++;draw();});
+    }else speak(e.word);});}
+  draw();
+}
+function mountSelf(){var fab=document.createElement('button');fab.id='rvcFab';fab.className='rvc-fab';fab.addEventListener('click',openSelf);document.body.appendChild(fab);refreshFab();}
+
+/* ===== Hub：只總覽 ===== */
+function mountOverview(){
+  var host=document.getElementById('dash');var card=document.createElement('div');card.className='rvc-card';card.id='rvcCard';
+  if(host&&host.parentNode)host.parentNode.insertBefore(card,host.nextSibling);else document.body.insertBefore(card,document.body.firstChild);
+  var w=R.wrong(),v=R.words();var per={};
+  function acc(id,kind){if(!NSMAP[id])return;per[id]=per[id]||{w:0,v:0};per[id][kind]++;}
+  for(var k in w){if(w[k].due<=NOW)acc(w[k].app,'w');}
+  for(var k2 in v){if(v[k2].due<=NOW)acc(v[k2].app,'v');}
+  var ids=Object.keys(per);
+  var h='<h3>📝 我的複習</h3>';
+  if(!ids.length){h+='<div class=\"rvc-none\">目前沒有待複習的錯題或生字 🎉<br>去各 App 練習，答錯的題目、閱讀點的生字，會分別留在<b>那支 App</b> 裡等你複習。</div>';}
+  else{h+='<div class=\"rvc-sub\">點進該 App 複習自己的錯題與生字（各程度分開，不混在一起）</div>';
+    ids.forEach(function(id){var m=NSMAP[id],p=per[id];h+='<a class=\"rvc-approw\" href=\"'+m.url+'\"><div><div class=\"an\">'+esc(m.name)+'</div><div class=\"am\">'+(p.w?'錯題 '+p.w+' 題':'')+(p.w&&p.v?'・':'')+(p.v?'生字 '+p.v+' 個':'')+'</div></div><span class=\"ag\">去複習 ▶</span></a>';});}
+  card.innerHTML=h;
+}
+
+if(ISHUB){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mountOverview);else mountOverview();}
+else{if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mountSelf);else mountSelf();}
+})();</script>
+<!-- 版本更新提示（家族共用模組 fam-update v1）-->
+<script>
+(function(){
+  if(!('serviceWorker' in navigator)||window.__famUpd)return; window.__famUpd=1;
+  var reg=null, shown=false, refreshing=false, watched=false;
+  function mkBanner(){
+    if(document.getElementById('famUpdateBanner'))return;
+    var b=document.createElement('div'); b.id='famUpdateBanner';
+    b.setAttribute('style','position:fixed;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:2147483000;max-width:520px;margin:0 auto;background:linear-gradient(135deg,#16a34a,#0d9488);color:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 8px 26px rgba(16,163,74,.45);display:flex;align-items:center;gap:10px;font:600 14px/1.4 system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif');
+    b.innerHTML='<div style="flex:1"><b>🎉 有新版本可用</b><br><span style="font-size:12.5px;font-weight:400;opacity:.95">點「立即更新」套用最新版</span></div><button id="famUpdGo" style="background:#fff;color:#0d9488;border:0;border-radius:10px;padding:8px 15px;font:800 13.5px system-ui,sans-serif;cursor:pointer">立即更新</button><button id="famUpdX" aria-label="close" style="background:rgba(255,255,255,.22);border:0;color:#fff;width:30px;height:30px;border-radius:8px;font-size:15px;cursor:pointer">✕</button>';
+    (document.body||document.documentElement).appendChild(b);
+    document.getElementById('famUpdX').onclick=function(){b.remove()};
+    document.getElementById('famUpdGo').onclick=function(){
+      var w=reg&&reg.waiting;
+      if(w){['SKIP_WAITING','skipWaiting',{type:'SKIP_WAITING'}].forEach(function(m){try{w.postMessage(m)}catch(e){}});b.remove();setTimeout(function(){if(!refreshing){refreshing=true;location.reload();}},1800);}
+      else location.reload();
+    };
+  }
+  function show(){if(shown)return;shown=true;mkBanner();}
+  function watch(r){
+    if(!r||watched)return; watched=true; reg=r;
+    if(r.waiting&&navigator.serviceWorker.controller)show();
+    r.addEventListener('updatefound',function(){var nw=r.installing;if(!nw)return;
+      nw.addEventListener('statechange',function(){if(nw.state==='installed'&&navigator.serviceWorker.controller)show();});});
+    try{setInterval(function(){r.update().catch(function(){});},30*60*1000);}catch(e){}
+  }
+  navigator.serviceWorker.getRegistration().then(watch).catch(function(){});
+  navigator.serviceWorker.ready.then(watch).catch(function(){});
+  navigator.serviceWorker.addEventListener('controllerchange',function(){if(refreshing)return;refreshing=true;location.reload();});
+})();
+</script>
+<!-- 稜線識別 v1：頁尾已改用 footer 內的 .rl-sign-block（正式簽名區塊），舊 rdg-foot 已移除 -->
+
+
+<style>/*BACKUP*/
+.bk{margin:14px 0 4px;padding:14px;border:1px solid var(--line,#2E3A4B);border-radius:12px;background:var(--card,#18222E)}
+.bk h3{margin:0 0 4px;font-size:15px}
+.bk .bkhint{font-size:12.5px;color:var(--muted,#93A0B2);line-height:1.6;margin:0 0 10px}
+.bk .bkrow{display:flex;gap:8px;flex-wrap:wrap}
+.bk button{flex:1;min-width:130px;padding:10px 12px;border-radius:9px;border:1px solid var(--line,#2E3A4B);
+  background:var(--card2,#0E1620);color:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.bk button.pri{background:#DE9A45;color:#141E2B;border:0}
+.bk button:disabled{opacity:.5;cursor:default}
+.bk .bkmsg{font-size:12.5px;margin-top:8px;line-height:1.6;white-space:pre-wrap}
+.bk .ok{color:#5FB07A}.bk .bad{color:#E5786F}
+#bkfile{display:none}
+</style>
+<script>/*BACKUP*/
+(function(){
+  if(window.__bk) return; window.__bk=1;
+  var VER='engbak-1';
+  /* ⚠️ 密碼類一律不備份 —— 備份檔裡放明文密碼＝鎖跟鑰匙放一起 */
+  var SECRET=/(^|[._])pw$|_pw$|teacherPin|password/i;
+  var b2b=function(b){var s=atob(b),a=new Uint8Array(s.length);for(var i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a.buffer};
+  var ab2b64=function(buf){var b='',u=new Uint8Array(buf);for(var i=0;i<u.length;i++)b+=String.fromCharCode(u[i]);return btoa(b)};
+  function $(i){return document.getElementById(i)}
+  function say(m,cls){var e=$('bkmsg');if(e){e.className='bkmsg '+(cls||'');e.textContent=m;}}
+
+  function collect(){
+    var o={},n=0;
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      if(SECRET.test(k)) continue;               // 密碼不備份
+      o[k]=localStorage.getItem(k); n++;
+    }
+    return {keys:o,n:n};
+  }
+  async function keyFrom(pw,salt,iter){
+    var km=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+    return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:iter,hash:'SHA-256'},km,
+      {name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+  }
+  /* 下載在最上層文件做：hub 上鎖後跑在 srcdoc iframe 裡，
+     iframe 下載權限有變數；同源 → 直接用 top 的 document 最穩。 */
+  function download(name,text){
+    var d=document,w=window;
+    try{ if(w.top && w.top.document){ d=w.top.document; } }catch(e){}
+    var url=URL.createObjectURL(new Blob([text],{type:'application/json'}));
+    var a=d.createElement('a'); a.href=url; a.download=name;
+    (d.body||d.documentElement).appendChild(a); a.click();
+    setTimeout(function(){a.remove();URL.revokeObjectURL(url);},1500);
+  }
+  function pwOf(){
+    /* 備份檔用哪個密碼加密 —— **只認家庭 hub 的鎖密碼**（lock_*_pw）。
+       ⚠️ 不要連 kh2a_pw / gkq_pw 一起撈：家庭 hub 密碼和對內 App 密碼
+       不同，若隨便挑一個，「備份到底用了哪個密碼」就不確定，
+       使用者換新裝置還原時無從輸入。固定用「進這個 hub 的那把密碼」＝直覺且確定。 */
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      if(/^lock_.*_pw$/.test(k)){var v=localStorage.getItem(k);if(v)return v;}
+    }
+    return null;
+  }
+  async function decryptWith(raw,pw){
+    var k=await keyFrom(pw,new Uint8Array(b2b(raw.salt)),raw.iter);
+    var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:new Uint8Array(b2b(raw.iv))},k,b2b(raw.ct));
+    return JSON.parse(new TextDecoder().decode(pt));
+  }
+  async function unlock(raw){
+    /* 先用裝置上存的家庭 hub 密碼自動試；失敗（或新裝置沒有）就讓使用者輸入並重試。 */
+    var cand=pwOf();
+    if(cand){ try{ return await decryptWith(raw,cand); }catch(e){} }
+    for(var i=0;i<3;i++){
+      var pw=prompt(i===0?'請輸入備份檔的密碼（就是你進這個入口用的通行密碼）：':'密碼不對，再試一次：');
+      if(!pw) throw new Error('取消');
+      try{ return await decryptWith(raw,pw); }catch(e){}
+    }
+    throw new Error('密碼不正確，解不開這個備份檔');
+  }
+
+  window.bkExport=async function(){
+    var btn=$('bkout'); btn.disabled=true; say('打包中…');
+    try{
+      var pw=pwOf()||prompt('設定一個備份密碼（還原時要輸入同一個）：');
+      if(!pw){btn.disabled=false;say('取消');return;}
+      var c=collect();
+      var body=JSON.stringify({v:VER,at:new Date().toISOString(),origin:location.origin,n:c.n,keys:c.keys});
+      var salt=crypto.getRandomValues(new Uint8Array(16)), iv=crypto.getRandomValues(new Uint8Array(12)), iter=150000;
+      var k=await keyFrom(pw,salt,iter);
+      var ct=await crypto.subtle.encrypt({name:'AES-GCM',iv:iv},k,new TextEncoder().encode(body));
+      var out={__:'english-family-backup',v:VER,iter:iter,
+        salt:ab2b64(salt.buffer),iv:ab2b64(iv.buffer),ct:ab2b64(ct)};
+      var d=new Date(), p=function(x){return String(x).padStart(2,'0')};
+      download('英語學習備份-'+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'.json',JSON.stringify(out));
+      say('✅ 已下載備份（'+c.n+' 筆紀錄，已用通行密碼加密）\n把它存到雲端或另一台裝置就安全了。',' ok');
+    }catch(e){ say('✗ 備份失敗：'+e.message,'bad'); }
+    btn.disabled=false;
+  };
+
+  window.bkPick=function(){ $('bkfile').click(); };
+
+  window.bkImport=async function(ev){
+    var f=ev.target.files&&ev.target.files[0]; if(!f) return;
+    ev.target.value='';
+    say('讀取中…');
+    try{
+      var raw=JSON.parse(await f.text());
+      if(raw.__!=='english-family-backup') throw new Error('這不是英語學習的備份檔');
+      var data=await unlock(raw);      // 自動試存的密碼，失敗再問、可重試
+
+      /* ⚠️ 匯入前一定要讓人看清楚：拿舊備份蓋掉新進度是不可逆的。
+         所以先算「備份日期」與「現在裝置有多少」給人比較。 */
+      var now=collect();
+      var when=new Date(data.at), ago=Math.round((Date.now()-when.getTime())/86400000);
+      var msg='備份日期：'+when.toLocaleString('zh-TW')+'（'+(ago<=0?'今天':ago+' 天前')+'）\n'
+             +'備份裡有 '+data.n+' 筆紀錄\n'
+             +'這台裝置現在有 '+now.n+' 筆\n\n'
+             +'還原會用備份的內容覆蓋這台裝置上同名的紀錄。\n'
+             +(data.n<now.n?'⚠️ 備份的筆數比現在少，可能是比較舊的檔案。\n':'')
+             +'\n確定要還原嗎？';
+      if(!confirm(msg)){ say('已取消，沒有動到任何東西'); return; }
+
+      var n=0;
+      for(var key in data.keys){
+        if(SECRET.test(key)) continue;            // 備份檔不該有，防呆
+        localStorage.setItem(key,data.keys[key]); n++;
+      }
+      say('✅ 已還原 '+n+' 筆紀錄。重新整理後生效…',' ok');
+      setTimeout(function(){ (window.top||window).location.reload(); },1200);
+    }catch(e){ say('✗ 還原失敗：'+e.message,'bad'); }
+  };
+
+  /* 掛在儀表板下面 */
+  function mount(){
+    var host=document.getElementById('dash'); if(!host) return;
+    var d=document.createElement('div'); d.className='bk';
+    d.innerHTML='<h3>💾 備份與還原</h3>'
+      +'<p class="bkhint">一鍵備份<b>全部 App</b> 的學習紀錄（進度、錯題本、忍者 XP）。'
+      +'換手機或清快取前先備份 —— 沒有備份的話，資料清掉就<b>永久消失</b>。<br>'
+      +'備份檔已用通行密碼加密，放雲端也安全。</p>'
+      +'<div class="bkrow"><button class="pri" id="bkout" onclick="bkExport()">⬇ 下載備份</button>'
+      +'<button onclick="bkPick()">⬆ 從備份還原</button></div>'
+      +'<input type="file" id="bkfile" accept=".json,application/json" onchange="bkImport(event)">'
+      +'<p class="bkmsg" id="bkmsg"></p>';
+    host.parentNode.insertBefore(d,host.nextSibling);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',mount); else mount();
+})();
+</script>
+
+</body>
+</html>
