@@ -1,0 +1,86 @@
+/* 活潑層 engine：hub（922 對外作品集入口）
+   來源：packages/lively/engines/hub.css → 922 的 lively-engine.css
+   原本：ridgeline-ui.css 變數（鋼藍深色頁首、深色模式跟系統變岩藍底），備份區塊沒定義 --card 而退回寫死的深藍黑。
+   現在：米白底＋家族藍淺色系統；深色跟系統用家族深色；各 App 的 .ic 圖示色塊是品牌層，原樣保留。
+   選擇器前綴 html:not([data-lv-off])：權重要壓過 ridgeline-ui 的 :root 與 body.theme-steel。 */
+
+/* ---------- 把 App 原本的變數接到色票 ---------- */
+html:not([data-lv-off]),html:not([data-lv-off]) body{
+  --bg:var(--lv-paper); --surface:var(--lv-card); --card:var(--lv-card); --card2:var(--lv-paper);
+  --ink:var(--lv-text); --sub:color-mix(in srgb,var(--lv-text) 80%,var(--lv-muted)); --muted:var(--lv-muted);
+  --line:var(--lv-line); --accent:var(--lv-acc); --tint:var(--lv-soft);
+}
+html,body{background:var(--lv-paper)}
+body{color:var(--lv-text)}
+
+/* 數字用圓體 */
+.dstat b,#count{font-family:"LvNum",-apple-system,"Segoe UI",system-ui,"PingFang TC","Microsoft JhengHei",sans-serif}
+
+/* ---------- 頁首（core 已改淡主色底＋山丘）：標記底改淡白，在淡底上看得見 ---------- */
+.rl-appbar .rl-mark{background:color-mix(in srgb,var(--lv-card) 70%,transparent)}
+/* 頁首副標：ridgeline-ui 用 62% 透明的字，在淡主色底上不到 4.5 → 改實色 muted（只改顏色，不改內容） */
+.rl-appbar .rl-sub{color:var(--lv-muted)}
+
+/* ---------- 標籤、介紹、安裝 ---------- */
+.tags span{color:var(--lv-acc);background:var(--lv-soft);box-shadow:inset 0 0 0 1px var(--lv-soft2)}
+.intro{color:var(--sub)}
+#installBar .ib{background:var(--lv-btn);color:var(--lv-ink);border-radius:16px;box-shadow:0 4px 0 var(--lv-btn-d);transition:transform .08s,box-shadow .08s}
+#installBar .ib:active{transform:translateY(3px);box-shadow:0 1px 0 var(--lv-btn-d)}
+#installBar .ib.sec{background:var(--lv-card);color:var(--lv-acc);border:0;box-shadow:0 0 0 1.5px var(--lv-soft2),0 4px 0 var(--lv-soft2)}
+#installBar .tip{background:var(--lv-card);border-color:var(--lv-line);color:var(--sub)}
+#installBar .tip .x{color:var(--lv-acc)}
+
+/* ---------- 搜尋 ---------- */
+.search{background:var(--lv-card);border:0;border-radius:16px;box-shadow:0 0 0 1.5px var(--lv-line)}
+.search:focus-within{box-shadow:0 0 0 2px var(--lv-btn)}
+.search input{color:var(--lv-text)}
+.search input::placeholder{color:var(--lv-muted)}
+
+/* ---------- 分類標題：前面一顆淺主色小圓點 ---------- */
+h2.grp{color:var(--lv-text);display:flex;align-items:center;gap:8px}
+h2.grp::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--lv-btn);flex:none}
+
+/* ---------- App 卡片：白卡＋底部厚邊，.ic 原樣 ---------- */
+.card{background:var(--lv-card);border:0;border-radius:20px;box-shadow:0 0 0 1.5px var(--lv-line),0 4px 0 var(--lv-line);transition:transform .12s,box-shadow .12s}
+.card:active{transform:translateY(3px);box-shadow:0 0 0 1.5px var(--lv-line),0 1px 0 var(--lv-line)}
+@media(hover:hover){.card:hover{border:0;box-shadow:0 0 0 2px var(--lv-btn),0 4px 0 var(--lv-btn-d);transform:translateY(-2px)}}
+.card .nm{color:var(--lv-text)}
+.card .ds{color:var(--lv-muted)}
+.card .go{color:var(--lv-acc);background:var(--lv-soft);border-radius:999px;padding:4px 12px}
+.card.soon .go{color:var(--lv-muted);background:transparent}
+.badge-soon{background:var(--lv-sun-soft);color:var(--lv-sun)}
+.empty,.src{color:var(--lv-muted)}
+.src{border-top-color:var(--lv-line)}
+.src b{color:var(--sub)}
+
+/* ---------- 學習儀表板 ---------- */
+.dash{background:var(--lv-card);border:0;border-radius:22px;box-shadow:0 0 0 1.5px var(--lv-line),0 4px 14px rgba(60,50,30,.06)}
+.dash h3{color:var(--lv-text)}
+.dstat{background:var(--lv-soft);border:0;border-radius:16px;box-shadow:inset 0 0 0 1.5px var(--lv-soft2)}
+.dstat b{color:var(--lv-text);font-weight:900}
+.dstat span{color:var(--lv-muted)}
+/* 行內寫死的橘字（待複習數）→ 家族暖陽色（原橘在米白上對比不足） */
+.dash [style*="#d9822b"]{color:var(--lv-sun)!important}
+.dapp{background:var(--lv-paper);border:0;border-radius:14px;box-shadow:0 0 0 1.5px var(--lv-line)}
+.dapp .dnm{color:var(--lv-text)}
+.dapp .dmeta{color:var(--lv-muted)}
+.dapp .dgo{color:var(--lv-acc)}
+.dwords summary{color:var(--lv-muted)}
+.wchip{background:var(--lv-paper);border-color:var(--lv-line);color:var(--lv-text)}
+.dash .demp{color:var(--lv-muted)}
+
+/* ---------- 備份還原（原本退回寫死的深藍黑） ---------- */
+html .bk{background:var(--lv-card);border:0;border-radius:18px;box-shadow:0 0 0 1.5px var(--lv-line)}
+html .bk h3{color:var(--lv-text)}
+html .bk .bkhint{color:var(--lv-muted)}
+html .bk button{background:var(--lv-card);color:var(--lv-text);border:0;border-radius:14px;box-shadow:0 0 0 1.5px var(--lv-line),0 3px 0 var(--lv-line)}
+html .bk button.pri{background:var(--lv-btn);color:var(--lv-ink);box-shadow:0 3px 0 var(--lv-btn-d)}
+html .bk button:active{transform:translateY(2px)}
+html .bk .ok{color:var(--lv-ok)}
+html .bk .bad{color:var(--lv-no)}
+
+/* ---------- 品牌層：深色時山形換同資料夾的白色版（同 901 作法，不改內容） ---------- */
+@media (prefers-color-scheme:dark){
+  html:not([data-theme]) .rl-appbar img.rl-glyph,html:not([data-theme]) .rl-signature img.rl-sig-glyph{content:url(rl-mark-everest-white.png)}
+}
+html[data-theme="dark"] .rl-appbar img.rl-glyph,html[data-theme="dark"] .rl-signature img.rl-sig-glyph{content:url(rl-mark-everest-white.png)}
