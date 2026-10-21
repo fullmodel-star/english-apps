@@ -1,0 +1,14 @@
+/* 由 packages/lively/sync_lively.py 產生，請勿手改（改 apps.json 再重跑）。
+   922_english-public｜主題色相來源 #385878｜engine=hub｜level=low */
+:root{--lv-engine:hub;--lv-level:low}
+html:not([data-theme="dark"]),html:not([data-theme="dark"]) body{
+  --lv-btn:#89ADD2;--lv-btn-d:#5D8AB7;--lv-ink:#1C3854;--lv-acc:#3B6B9B;
+  --lv-soft:#E8F0F7;--lv-soft2:#CEDBE8;
+}
+html[data-theme="dark"],html[data-theme="dark"] body{
+  --lv-btn:#89ADD2;--lv-btn-d:#5D8AB7;--lv-ink:#1C3854;--lv-acc:#7AA3CD;
+  --lv-soft:#253341;--lv-soft2:#374C62;
+}
+@media (prefers-color-scheme:dark){html:not([data-theme]),html:not([data-theme]) body{
+  --lv-acc:#7AA3CD;--lv-soft:#253341;--lv-soft2:#374C62;
+}}
